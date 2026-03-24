@@ -1,20 +1,28 @@
 package com.example.belajr
 
-import com.example.belajr.BuildConfig
+//import com.example.belajr.BuildConfig
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.realtime.Realtime
 import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.HttpTimeout
+import java.util.concurrent.TimeUnit
 
 object SupabaseClient {
     val client = createSupabaseClient(
-        supabaseUrl = BuildConfig.SUPABASE_URL,
-        supabaseKey = BuildConfig.SUPABASE_ANON_KEY
+        supabaseUrl = "https://eerydjnbbmkgipmrjggn.supabase.co",
+        supabaseKey = "sb_publishable_je7ZuZ0cmuffR41rG1_WPA_dmegyN51"
     ) {
         install(Auth)
         install(Postgrest)
         install(Realtime)
-        httpEngine = OkHttp.create()
+        httpEngine = OkHttp.create {
+            config {
+                connectTimeout(60, TimeUnit.SECONDS)
+                readTimeout(60, TimeUnit.SECONDS)
+                writeTimeout(60, TimeUnit.SECONDS)
+            }
+        }
     }
 }

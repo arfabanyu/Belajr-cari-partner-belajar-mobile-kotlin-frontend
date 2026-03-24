@@ -1,3 +1,5 @@
+package com.example.belajr.controllers
+
 import com.example.belajr.SupabaseClient
 import com.google.firebase.messaging.FirebaseMessaging
 import io.github.jan.supabase.auth.auth

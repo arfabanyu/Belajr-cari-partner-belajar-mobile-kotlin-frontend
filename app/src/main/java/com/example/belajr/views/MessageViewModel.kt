@@ -1,12 +1,11 @@
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.belajr.SupabaseClient
 import com.example.belajr.controllers.FriendRepository
+import com.example.belajr.controllers.MessageRepository
 import io.github.jan.supabase.realtime.PostgresAction
 import io.github.jan.supabase.realtime.RealtimeChannel
 import io.github.jan.supabase.realtime.decodeRecord
 import io.github.jan.supabase.realtime.postgresChangeFlow
-import io.github.jan.supabase.realtime.realtime
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn

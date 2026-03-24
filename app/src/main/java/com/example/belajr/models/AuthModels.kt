@@ -13,7 +13,7 @@ data class RegisterRequest(
 @Serializable
 data class ProfileUpdate(
     val username: String? = null,
-    val interests: String? = null,
+    val interests: List<String>? = null,
     @SerialName("learning_status")
     val learningStatus: String? = null
 )

@@ -1,3 +1,5 @@
+package com.example.belajr.controllers
+
 import io.github.jan.supabase.auth.auth
 import android.content.Context
 import android.net.Uri

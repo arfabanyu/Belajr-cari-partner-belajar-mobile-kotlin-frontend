@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 data class PartnerResult(
     val id: String,
     val username: String,
-    val interests: String? = null,
+    val interests: List<String>? = null,
     @SerialName("learning_status")
     val learningStatus: String? = null
 )

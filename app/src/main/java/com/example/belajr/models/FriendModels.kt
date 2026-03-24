@@ -8,7 +8,7 @@ data class Profile(
     val id: String,
     val email: String,
     val username: String,
-    val interests: String? = null,
+    val interests: List<String>? = null,
     @SerialName("learning_status")
     val learningStatus: String? = null
 )
