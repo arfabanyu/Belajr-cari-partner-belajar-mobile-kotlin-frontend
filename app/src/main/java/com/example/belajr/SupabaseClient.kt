@@ -1,6 +1,5 @@
 package com.example.belajr
 
-//import com.example.belajr.BuildConfig
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest

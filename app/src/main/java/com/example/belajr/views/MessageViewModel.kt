@@ -29,23 +29,19 @@ class MessageViewModel : ViewModel() {
     private val _error = MutableStateFlow<String?>(null)
     val error = _error.asStateFlow()
 
-    // Buka chat room dengan teman tertentu
     private var activeChannel: RealtimeChannel? = null
 
     fun openChat(otherUserId: String) {
         viewModelScope.launch {
             _isLoading.value = true
 
-            // 1. Load riwayat pesan
             repo.getMessages(otherUserId)
                 .onSuccess { _messages.value = it }
                 .onFailure { _error.value = it.message }
 
-            // 2. Setup channel
             val channel = repo.getChannel(otherUserId)
             activeChannel = channel
 
-            // 3. Listen perubahan, type explicit di sini
             channel.postgresChangeFlow<PostgresAction.Insert>(
                 schema = "public"
             ) {
@@ -60,7 +56,6 @@ class MessageViewModel : ViewModel() {
                 }
             }.launchIn(viewModelScope)
 
-            // 4. Subscribe
             repo.subscribeChannel(channel)
             _isLoading.value = false
         }
@@ -82,7 +77,6 @@ class MessageViewModel : ViewModel() {
         viewModelScope.launch {
             repo.sendMessage(receiverId, content)
                 .onFailure { _error.value = it.message }
-            // Nggak perlu reload, realtime sudah handle
         }
     }
 

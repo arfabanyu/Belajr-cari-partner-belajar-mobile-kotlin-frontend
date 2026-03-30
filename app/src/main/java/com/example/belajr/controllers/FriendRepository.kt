@@ -8,11 +8,9 @@ import io.github.jan.supabase.postgrest.postgrest
 
 class FriendRepository {
 
-//    private val supabase = supabaseClient
     private val currentUserId get() =
     SupabaseClient.client.auth.currentUserOrNull()?.id ?: error("Not logged in")
 
-    // Kirim friend request
     suspend fun sendRequest(receiverId: String): Result<Unit> = runCatching {
         SupabaseClient.client.postgrest["friend_requests"].insert(
             FriendRequest(
@@ -22,7 +20,6 @@ class FriendRepository {
         )
     }
 
-    // Ambil semua request yang masuk (status pending)
     suspend fun getIncomingRequests(): Result<List<FriendRequest>> = runCatching {
         SupabaseClient.client.postgrest["friend_requests"]
             .select {
@@ -34,7 +31,6 @@ class FriendRepository {
             .decodeList<FriendRequest>()
     }
 
-    // Ambil semua request yang dikirim
     suspend fun getOutgoingRequests(): Result<List<FriendRequest>> = runCatching {
         SupabaseClient.client.postgrest["friend_requests"]
             .select {
@@ -46,7 +42,6 @@ class FriendRepository {
             .decodeList<FriendRequest>()
     }
 
-    // Terima request, lalu buat friendship
     suspend fun acceptRequest(requestId: Long, senderId: String): Result<Unit> = runCatching {
         // Update status jadi accepted
         SupabaseClient.client.postgrest["friend_requests"]
@@ -63,7 +58,6 @@ class FriendRepository {
         )
     }
 
-    // Tolak request
     suspend fun rejectRequest(requestId: Long): Result<Unit> = runCatching {
         SupabaseClient.client.postgrest["friend_requests"]
             .update({ set("status", "rejected") }) {
@@ -71,7 +65,6 @@ class FriendRepository {
             }
     }
 
-    // Ambil daftar teman aktif
     suspend fun getFriends(): Result<List<Friendship>> = runCatching {
         SupabaseClient.client.postgrest["friendships"]
             .select {
@@ -85,7 +78,6 @@ class FriendRepository {
             .decodeList<Friendship>()
     }
 
-    // Cek apakah sudah berteman
     suspend fun isFriend(otherUserId: String): Boolean {
         return try {
             val result = SupabaseClient.client.postgrest["friendships"]

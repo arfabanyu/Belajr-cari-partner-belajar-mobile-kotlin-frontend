@@ -51,28 +51,3 @@ class BelaJrMessagingService : FirebaseMessagingService() {
             .notify(System.currentTimeMillis().toInt(), notification)
     }
 }
-//```
-//
-//Gw ganti `R.drawable.ic_notification` jadi `R.mipmap.ic_launcher` dulu karena `ic_notification` belum tentu ada di project lu. Nanti kalau mau pakai icon custom, tinggal tambah drawable-nya dan ganti referensinya.
-//
-//*Soal `index.ts` dan TypeScript*
-//
-//Iya, Edge Function Supabase memang pakai TypeScript dan dijalankan di atas Deno. Cara buatnya:
-//
-//1. Install Supabase CLI dulu di laptop lu via PowerShell:
-//```
-//scoop install supabase
-//```
-//atau download langsung dari `github.com/supabase/cli/releases`.
-//
-//2. Setelah ter-install, jalankan di folder project lu:
-//```
-//supabase init
-//supabase functions new notify-friend-request
-//```
-//
-//3. Nanti otomatis terbuat folder `supabase/functions/notify-friend-request/index.ts`. Isi dengan kode Edge Function yang gw kasih sebelumnya.
-//
-//4. Deploy ke Supabase:
-//```
-//supabase functions deploy notify-friend-request

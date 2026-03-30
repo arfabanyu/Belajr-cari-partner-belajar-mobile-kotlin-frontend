@@ -12,7 +12,6 @@ class NotificationRepository {
         SupabaseClient.client.auth.currentUserOrNull()?.id
             ?: error("Belum login")
 
-    // Ambil FCM token lalu simpan ke Supabase
     suspend fun registerFcmToken(): Result<Unit> = runCatching {
         val token = FirebaseMessaging.getInstance().token.await()
 
@@ -22,7 +21,6 @@ class NotificationRepository {
             }
     }
 
-    // Hapus token saat logout
     suspend fun clearFcmToken(): Result<Unit> = runCatching {
         SupabaseClient.client.postgrest["profiles"]
             .update({ set("fcm_token", null as String?) }) {

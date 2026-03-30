@@ -22,8 +22,6 @@ class MatchViewModel : ViewModel() {
     private val _error = MutableStateFlow<String?>(null)
     val error = _error.asStateFlow()
 
-    // Debounce supaya nggak spam request
-    // setiap user ketik satu huruf
     private var searchJob: Job? = null
 
     fun search(keyword: String) {

@@ -45,7 +45,6 @@ class AuthViewModel : ViewModel() {
                 .onSuccess {
                     _authState.value = AuthState.Success
                     loadProfile()
-                    // Register FCM token setelah login
                     NotificationRepository().registerFcmToken()
                 }
                 .onFailure {

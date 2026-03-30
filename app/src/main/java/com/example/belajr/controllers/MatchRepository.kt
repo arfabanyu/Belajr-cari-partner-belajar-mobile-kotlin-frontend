@@ -15,11 +15,8 @@ class MatchRepository {
         SupabaseClient.client.auth.currentUserOrNull()?.id
             ?: error("Belum login")
 
-    // Cari partner berdasarkan keyword interests
     suspend fun searchPartners(keyword: String): Result<List<PartnerWithStatus>> =
         runCatching {
-            // 1. Ambil semua user yang interests-nya cocok,
-            //    kecuali diri sendiri
             val profiles = SupabaseClient.client.postgrest["profiles"]
                 .select {
                     filter {
@@ -29,8 +26,6 @@ class MatchRepository {
                 }
                 .decodeList<PartnerResult>()
 
-            // 2. Ambil semua friend request yang melibatkan
-            //    user ini (sent atau received)
             val requests = SupabaseClient.client.postgrest["friend_requests"]
                 .select {
                     filter {
@@ -42,7 +37,6 @@ class MatchRepository {
                 }
                 .decodeList<FriendRequest>()
 
-            // 3. Ambil semua friendship aktif
             val friendships = SupabaseClient.client.postgrest["friendships"]
                 .select {
                     filter {
@@ -54,7 +48,6 @@ class MatchRepository {
                 }
                 .decodeList<Friendship>()
 
-            // 4. Map setiap profile ke status relasinya
             profiles.map { profile ->
                 val status = determineStatus(
                     profile.id,
@@ -65,20 +58,17 @@ class MatchRepository {
             }
         }
 
-    // Tentukan status relasi dengan user tertentu
     private fun determineStatus(
         otherUserId: String,
         requests: List<FriendRequest>,
         friendships: List<Friendship>
     ): RelationStatus {
 
-        // Cek apakah sudah berteman
         val isFriend = friendships.any {
             it.userOneId == otherUserId || it.userTwoId == otherUserId
         }
         if (isFriend) return RelationStatus.FRIEND
 
-        // Cek apakah ada request pending
         val request = requests.firstOrNull {
             (it.senderId == otherUserId || it.receiverId == otherUserId)
                     && it.status == "pending"

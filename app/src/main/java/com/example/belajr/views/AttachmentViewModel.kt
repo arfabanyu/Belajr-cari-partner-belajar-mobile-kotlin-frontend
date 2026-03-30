@@ -23,7 +23,6 @@ class AttachmentViewModel(private val context: Context) : ViewModel() {
     private val _uploadState = MutableStateFlow<UploadState>(UploadState.Idle)
     val uploadState = _uploadState.asStateFlow()
 
-    // Upload file lalu langsung kirim sebagai pesan
     fun uploadAndSend(
         uri: Uri,
         receiverId: String,
@@ -36,7 +35,6 @@ class AttachmentViewModel(private val context: Context) : ViewModel() {
                 .onSuccess { url ->
                     _uploadState.value = UploadState.Success(url)
 
-                    // Langsung kirim pesan dengan attachment
                     messageRepo.sendMessageWithAttachment(
                         receiverId = receiverId,
                         content = caption,
@@ -55,7 +53,6 @@ class AttachmentViewModel(private val context: Context) : ViewModel() {
         }
     }
 
-    // Reset state setelah upload selesai
     fun resetState() {
         _uploadState.value = UploadState.Idle
     }

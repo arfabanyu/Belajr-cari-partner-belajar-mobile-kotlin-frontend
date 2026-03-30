@@ -56,17 +56,14 @@ class RegisterPage : AppCompatActivity() {
     private fun registerUser(username: String, email: String, password: String) {
         lifecycleScope.launch {
             try {
-                // 1. Daftarkan user ke Supabase Auth
                 val result = SupabaseClient.client.auth.signUpWith(Email) {
                     this.email = email
                     this.password = password
                 }
 
-                // 2. Ambil UUID user yang baru dibuat
                 val userId = SupabaseClient.client.auth.currentUserOrNull()?.id
                     ?: throw Exception("Gagal mendapatkan user ID")
 
-                // 3. Insert ke tabel profiles
                 SupabaseClient.client.postgrest["profiles"]
                     .update({ set("username", username) }) {
                         filter { eq("id", userId) }
@@ -78,7 +75,6 @@ class RegisterPage : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                // 4. Balik ke halaman login
                 startActivity(Intent(this@RegisterPage, LoginPage::class.java))
                 finish()
 

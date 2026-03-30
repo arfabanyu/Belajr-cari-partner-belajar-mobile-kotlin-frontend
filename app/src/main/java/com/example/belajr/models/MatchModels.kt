@@ -11,10 +11,10 @@ data class PartnerResult(
 )
 
 enum class RelationStatus {
-    NONE,        // belum ada hubungan
-    PENDING_OUT, // lu yang kirim request, belum dibalas
-    PENDING_IN,  // dia yang kirim request ke lu
-    FRIEND       // sudah berteman
+    NONE,
+    PENDING_OUT,
+    PENDING_IN,
+    FRIEND
 }
 
 data class PartnerWithStatus(
