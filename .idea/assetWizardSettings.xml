@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialsymbolsoutlined/account_circle/outline_account_circle_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialsymbolssharp/align_flex_center/sharp_align_flex_center_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="color" value="1c1b1b" />
                             <entry key="opacityPercent" value="69" />
-                            <entry key="outputName" value="outline_account_circle_24" />
+                            <entry key="outputName" value="sharp_align_flex_center_24" />
                             <entry key="sourceFile" value="C:\Users\LOVEGA\AndroidStudioProjects\Belajr-cari-partner-belajar-mobile-kotlin-frontend" />
                           </map>
                         </option>
