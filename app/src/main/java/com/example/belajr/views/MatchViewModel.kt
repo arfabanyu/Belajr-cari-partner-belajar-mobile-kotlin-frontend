@@ -1,13 +1,15 @@
 package com.example.belajr.views
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.belajr.controllers.FriendRepository
 import com.example.belajr.controllers.MatchRepository
 import com.example.belajr.models.PartnerWithStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MatchViewModel : ViewModel() {
@@ -18,22 +20,17 @@ class MatchViewModel : ViewModel() {
     private val _results = MutableStateFlow<List<PartnerWithStatus>>(emptyList())
     val results = _results.asStateFlow()
 
+    // Untuk kompatibilitas dengan kode HomePage lama
+    val partners: LiveData<List<PartnerWithStatus>> = _results.asLiveData()
+
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading.asStateFlow()
 
     private val _error = MutableStateFlow<String?>(null)
     val error = _error.asStateFlow()
 
-    private var searchJob: Job? = null
-
-    fun search(keyword: String) {
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            if (keyword.isBlank()) {
-                _results.value = emptyList()
-                return@launch
-            }
-            delay(400) // tunggu 400ms setelah user berhenti ketik
+    fun searchPartners(keyword: String) {
+        viewModelScope.launch {
             _isLoading.value = true
             matchRepo.searchPartners(keyword)
                 .onSuccess { _results.value = it }
@@ -45,15 +42,7 @@ class MatchViewModel : ViewModel() {
     fun sendRequest(receiverId: String, keyword: String) {
         viewModelScope.launch {
             friendRepo.sendRequest(receiverId)
-                .onSuccess { search(keyword) } // refresh hasil search
-                .onFailure { _error.value = it.message }
-        }
-    }
-
-    fun acceptRequest(requestId: Long, senderId: String, keyword: String) {
-        viewModelScope.launch {
-            friendRepo.acceptRequest(requestId, senderId)
-                .onSuccess { search(keyword) }
+                .onSuccess { searchPartners(keyword) }
                 .onFailure { _error.value = it.message }
         }
     }

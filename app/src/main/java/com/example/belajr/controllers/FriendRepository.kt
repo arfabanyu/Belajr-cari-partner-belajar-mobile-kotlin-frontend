@@ -20,6 +20,16 @@ class FriendRepository {
         )
     }
 
+    suspend fun cancelRequest(receiverId: String): Result<Unit> = runCatching {
+        SupabaseClient.client.postgrest["friend_requests"].delete {
+            filter {
+                eq("sender_id", currentUserId)
+                eq("receiver_id", receiverId)
+                eq("status", "pending")
+            }
+        }
+    }
+
     suspend fun getIncomingRequests(): Result<List<FriendRequest>> = runCatching {
         SupabaseClient.client.postgrest["friend_requests"]
             .select {
