@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="65dp"
-    android:layout_marginHorizontal="15dp"
-    android:layout_marginBottom="15dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="8dp"
-    app:cardBackgroundColor="@color/white">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="#D6DFF1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,23 +33,40 @@
             android:src="@drawable/outline_chat_24"
             app:tint="@color/text_secondary" />
 
-        <!-- Friend List (New!) -->
+        <!-- Friend List (Hidden to match screenshot) -->
         <ImageView
             android:id="@+id/nav_friends"
             android:layout_width="0dp"
             android:layout_height="28dp"
-            android:layout_weight="1"
+            android:layout_weight="0"
+            android:visibility="gone"
             android:src="@drawable/outline_account_circle_24"
             app:tint="@color/text_secondary" />
 
         <!-- Notifications -->
-        <ImageView
-            android:id="@+id/nav_notifications"
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="28dp"
-            android:layout_weight="1"
-            android:src="@drawable/outline_circle_notifications_24"
-            app:tint="@color/text_secondary" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/nav_notifications"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:src="@drawable/outline_circle_notifications_24"
+                app:tint="@color/text_secondary" />
+
+            <!-- Red Dot -->
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_online_dot"
+                android:backgroundTint="#FF5252" />
+        </FrameLayout>
 
         <!-- Profile -->
         <ImageView

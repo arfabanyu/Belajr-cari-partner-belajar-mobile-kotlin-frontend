@@ -11,4 +11,8 @@
     <style name="CircleImageView" parent="">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="RoundedSquareImageView" parent="">
+        <item name="cornerSize">12dp</item>
+    </style>
 </resources>

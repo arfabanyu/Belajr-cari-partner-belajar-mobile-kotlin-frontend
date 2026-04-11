@@ -1,85 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/bg_light">
+    android:background="@color/primary"
+    android:orientation="vertical">
 
-    <!-- Header -->
+    <!-- Bagian Header (Massege & Online Friends) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/bg_header"
-        android:padding="20dp"
-        android:elevation="4dp">
+        android:paddingTop="24dp">
 
         <TextView
+            android:id="@+id/tvMassege"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Messages"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:fontFamily="@font/righteous"/>
+            android:layout_marginStart="24dp"
+            android:fontFamily="sans-serif-black"
+            android:text="Massege"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-        <!-- Story / Online Friends -->
-        <HorizontalScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOnlineFriends"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:scrollbars="none">
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_story_circle" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <include layout="@layout/item_story_circle" />
-                <include layout="@layout/item_story_circle" />
-                <include layout="@layout/item_story_circle" />
-                <include layout="@layout/item_story_circle" />
-                <include layout="@layout/item_story_circle" />
-            </LinearLayout>
-        </HorizontalScrollView>
+        <!-- Dot Indicators (Sekarang Dinamis) -->
+        <LinearLayout
+            android:id="@+id/llIndicators"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:orientation="horizontal" />
     </LinearLayout>
 
-    <!-- Search & Filter -->
-    <LinearLayout
+    <!-- Bagian Your Friends & Search -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center_vertical">
+        android:layout_marginTop="24dp"
+        android:paddingHorizontal="24dp">
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/tvYourFriends"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Recent Chats"
-            android:textColor="@color/text_main"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:layout_centerVertical="true"
+            android:fontFamily="sans-serif-black"
+            android:text="Your friends"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-        <EditText
+        <LinearLayout
+            android:id="@+id/searchBar"
             android:layout_width="160dp"
-            android:layout_height="40dp"
-            android:background="@drawable/borderradiuslogin"
-            android:hint="Search..."
-            android:paddingHorizontal="15dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"/>
-    </LinearLayout>
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_search_bar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp">
 
-    <!-- Chat List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChatList"
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="Search..."
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@android:drawable/ic_menu_search"
+                app:tint="@color/black" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- Chat List (Area Kartu Putih) -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:layout_weight="1"
-        android:paddingHorizontal="10dp"/>
+        android:background="@color/white"
+        android:orientation="vertical">
 
-    <!-- Custom Bottom Navigation -->
-    <include layout="@layout/layout_bottom_nav" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chat_container">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvChatList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                tools:listitem="@layout/item_chat_room" />
+
+        </FrameLayout>
+
+        <include layout="@layout/layout_bottom_nav" />
+
+    </LinearLayout>
 
 </LinearLayout>

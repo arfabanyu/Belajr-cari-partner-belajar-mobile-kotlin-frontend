@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="8dp">
 
     <androidx.cardview.widget.CardView
@@ -11,8 +12,7 @@
         android:layout_marginEnd="60dp"
         app:cardBackgroundColor="#F1F1F1"
         app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        app:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -20,11 +20,20 @@
             android:orientation="vertical"
             android:padding="10dp">
 
+            <!-- Attachment Image -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivAttachment"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:layout_marginBottom="8dp"
+                app:shapeAppearanceOverlay="@style/RoundedSquareImageView" />
+
             <TextView
                 android:id="@+id/tvMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Halo, mau belajar bareng?"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -34,7 +43,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="2dp"
-                android:text="10:00"
                 android:textColor="#888888"
                 android:textSize="10sp" />
         </LinearLayout>

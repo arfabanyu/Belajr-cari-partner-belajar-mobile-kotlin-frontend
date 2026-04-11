@@ -8,7 +8,9 @@ data class PartnerResult(
     val username: String,
     val interests: List<String>? = null,
     @SerialName("learning_status")
-    val learningStatus: String? = null
+    val learningStatus: String? = null,
+    @SerialName("is_online")
+    val isOnline: Boolean = false
 )
 
 enum class RelationStatus {

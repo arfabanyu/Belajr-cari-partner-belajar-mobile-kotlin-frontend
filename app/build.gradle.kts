@@ -83,6 +83,9 @@ dependencies {
     implementation(libs.firebase.messaging)
     implementation("com.google.firebase:firebase-analytics")
 
+    // Glide
+    implementation(libs.glide)
+
     // test
     testImplementation(libs.junit)
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
